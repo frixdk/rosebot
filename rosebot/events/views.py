@@ -90,7 +90,7 @@ class Events(APIView):
                 minutes = (delta.seconds // 60) % 60
                 bot_text = 'Der er {} dage, {} timer og {} minutter til Polen'.format(days, hours, minutes)
             elif 'stax' in im:
-                bot_text = "'Stax players are agents of Satan' - Hitler 1997"
+                bot_text = "'Stax players are agents of Satan' - Hitler 1997 :smiling_imp:"
             elif 'øl' in im:
                 ud = get_user_display(user)
                 bot_text = "{}. Mente du: {}?".format(ud, replace_keep_case("øl", "rosé", text))
