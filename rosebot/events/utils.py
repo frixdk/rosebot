@@ -67,7 +67,6 @@ def time_until(event_datetime):
         'minutes': minutes
     }
 
-
 def handle_event_message(event_message):
     # process user's message
     user = event_message.get('user')
@@ -96,8 +95,12 @@ def handle_event_message(event_message):
         if datetime.datetime.now().weekday() == 4:
             bot_text = "I dag er det fredag. :wine_glass: SKÅL :wine_glass:"
         else:
-
-            bot_text = "Det er ikke fredag i dag"
+            next_friday = datetime.datetime.now()
+            while next_friday.weekday() != 4:
+                next_friday += datetime.timedelta(1)
+            next_friday = next_friday.replace(hour=0, minute=00) - datetime.timedelta(hours=2)
+            timeleft = time_until(next_friday)
+            bot_text = 'Det er ikke fredag i dag. Der er {} dage, {} timer og {} minutter til fredag'.format(timeleft['days'], timeleft['hours'], timeleft['minutes'])
     elif 'skål' in im:
         bot_text = ' :wine_glass: SKÅL {} :wine_glass:'.format(get_user_display(user))
     else:

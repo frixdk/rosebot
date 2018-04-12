@@ -11,7 +11,7 @@ class Command(BaseCommand):
             "type": "message",
             "channel": "D9ZM3LNGG",  # put private channel here
             "user": "UA11Y58SJ",  # your user id here
-            "text": "øl pole rosé?",
+            "text": "fredag",
             "ts": "1355517523.000005"
         }
 
