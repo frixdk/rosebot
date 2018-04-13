@@ -88,6 +88,8 @@ def handle_event_message(event_message):
             bot_text = ':flag-pl: POLEN!!! :flag-pl:'
     elif 'stax' in im:
         bot_text = "'Stax players are agents of Satan' - Hitler 1997 :smiling_imp:"
+    elif 'peter madsen' in im:
+        bot_text = "Peter Madsen did nothing wrong"
     elif 'øl' in im:
         ud = get_user_display(user)
         bot_text = "{}. Mente du: {}?".format(ud, replace_keep_case("øl", "rosé", text))
