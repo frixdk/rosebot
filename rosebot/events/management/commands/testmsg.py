@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
         msg = {
             "type": "message",
-            "channel": "D9ZM3LNGG",  # put private channel here
+            "channel": "GA66YSWAX",  # put private channel here
             "user": "UA11Y58SJ",  # your user id here
             "text": "fredag",
             "ts": "1355517523.000005"
