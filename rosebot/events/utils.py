@@ -32,7 +32,7 @@ def get_rose_message():
     rose_messages = [
         'Det er pissefint rosévejr',
         'Det bliver ikke bedre',
-        'Rosébowling?'
+        'Rosébowling?',
         "Åh gu' så fint et rosévejr",
         'Rosévejr? Bare hæld op',
         "Åh som du vil ha'",
@@ -116,15 +116,34 @@ def handle_event_message(event_message):
     if 'rose' in sim and '?' in im:
         r = requests.get('https://www.yr.no/sted/Danmark/Nordjylland/%C3%85lborg/forecast.xml')
         root = ET.fromstring(r.content)
-        forecast = root.find('forecast').find('tabular').find('time')
+        forecast_tabs = root.find('forecast').find('tabular')
+
+        forecasts = [forecast for forecast in forecast_tabs.findall('time')]
+        forecast = forecasts[0]
+
+        # Spaghetti incoming, please refactor frix
+        if 'senere' in sim:
+            forecast = forecasts[1]
+        if 'morgen' in sim:
+            # Det er så hax jeg magter ikke at fikse timezones rigtigt
+            tomorrow = datetime.datetime.now() + datetime.timedelta(1)
+            tomorrow = tomorrow.replace(hour=0, minute=00)
+            # Find the next forecast from tomorrow noon
+            for fc in forecasts:
+                forecast_time = datetime.datetime.strptime(fc.get('from'), '%Y-%m-%dT%H:%M:%S')
+                if forecast_time > tomorrow and fc.get('period') == '2': # period 2 is from 12:00 - 18:00
+                    forecast = fc
+                    break
+
         temp = forecast.find('temperature').get('value')
         symbol = forecast.find('symbol').get('name')
-
+        symbol_id = forecast.find('symbol').get('var')
+        symbol_url = "http://51.15.50.78:8000/media/{0}.png".format(symbol_id)
         ud = get_user_display(user)
         bot_text = '{}°C {}. {} {}.'.format(temp, symbol, get_rose_message(), ud)
         Client.api_call(method='chat.postMessage',
                         channel=channel,
-                        #icon_url='http://lorempixel.com/48/48',
+                        icon_url=symbol_url,
                         text=bot_text)
         Client.api_call(
             "reactions.add",
