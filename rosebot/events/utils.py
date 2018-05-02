@@ -14,6 +14,7 @@ from slugify import slugify
 from slackclient import SlackClient
 
 Client = SlackClient(settings.SLACK_BOT_USER_TOKEN)
+AdminClient = SlackClient(settings.SLACK_OAUTH_ACCESS_TOKEN)
 
 def replace_keep_case(word, replacement, text):
     def func(match):
@@ -91,8 +92,13 @@ def handle_event_message(event_message):
     elif 'peter madsen' in im:
         bot_text = "Peter Madsen did nothing wrong"
     elif 'øl' in im:
-        ud = get_user_display(user)
-        bot_text = "{}. Mente du: {}?".format(ud, replace_keep_case("øl", "rosé", text))
+        better_msg = replace_keep_case("øl", "rosé", text)
+        AdminClient.api_call(
+            "chat.update",
+            ts=timestamp,
+            channel=channel,
+            text=better_msg
+        )
     elif 'fredag' in im:
         if datetime.datetime.now().weekday() == 4:
             bot_text = "I dag er det fredag. :wine_glass: SKÅL :wine_glass:"
