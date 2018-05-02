@@ -93,12 +93,15 @@ def handle_event_message(event_message):
         bot_text = "Peter Madsen did nothing wrong"
     elif 'øl' in im:
         better_msg = replace_keep_case("øl", "rosé", text)
-        AdminClient.api_call(
+        response = AdminClient.api_call(
             "chat.update",
             ts=timestamp,
             channel=channel,
             text=better_msg
         )
+        if not response.get('ok'):
+            ud = get_user_display(user)
+            bot_text = "{}. Mente du: {}?".format(ud, replace_keep_case("øl", "rosé", text))
     elif 'fredag' in im:
         if datetime.datetime.now().weekday() == 4:
             bot_text = "I dag er det fredag. :wine_glass: SKÅL :wine_glass:"
@@ -138,6 +141,14 @@ def handle_event_message(event_message):
             for fc in forecasts:
                 forecast_time = datetime.datetime.strptime(fc.get('from'), '%Y-%m-%dT%H:%M:%S')
                 if forecast_time > tomorrow and fc.get('period') == '2': # period 2 is from 12:00 - 18:00
+                    forecast = fc
+                    break
+        if 'polsemix' in sim:
+            pølsemix = datetime.datetime(2018, 5, 10, 0, 0, 0)
+            # Find the next forecast from tomorrow noon
+            for fc in forecasts:
+                forecast_time = datetime.datetime.strptime(fc.get('from'), '%Y-%m-%dT%H:%M:%S')
+                if forecast_time > pølsemix and fc.get('period') == '2': # period 2 is from 12:00 - 18:00
                     forecast = fc
                     break
 
