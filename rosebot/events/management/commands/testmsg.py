@@ -14,9 +14,9 @@ class Command(BaseCommand):
         msg = {
             "type": "message",
             "channel": "GA66YSWAX",  # put private channel here
-            "user": "DA05DMYS0",  # your user id here
+            "user": "UA11Y58SJ",  # your user id here
             "text": msg,
-            "ts": "1355517523.000005"
+            "ts": "1525252116.000231"
         }
 
         handle_event_message(msg)

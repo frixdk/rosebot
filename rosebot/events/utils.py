@@ -80,7 +80,7 @@ def handle_event_message(event_message):
 
     bot_text = ''
     if 'polen' in sim:
-        polen = datetime.datetime(2018, 5, 10, 10, 0, 0)
+        polen = datetime.datetime(2019, 5, 23, 13, 0, 0)
         timeleft = time_until(polen)
         if timeleft:
             bot_text = ('Der er {} dage, {} timer og {} minutter til Polen').format(
@@ -144,7 +144,7 @@ def handle_event_message(event_message):
                     forecast = fc
                     break
         if 'polsemix' in sim:
-            pølsemix = datetime.datetime(2018, 5, 10, 0, 0, 0)
+            pølsemix = datetime.datetime(2019, 5, 23, 0, 0, 0)
             # Find the next forecast from tomorrow noon
             for fc in forecasts:
                 forecast_time = datetime.datetime.strptime(fc.get('from'), '%Y-%m-%dT%H:%M:%S')

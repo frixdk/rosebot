@@ -11,4 +11,5 @@ $ python manage.py testmsg
 ```
 $ git fetch origin
 $ git reset --hard origin/master
+$ systemctl restart emperor.uwsgi.service
 ```
