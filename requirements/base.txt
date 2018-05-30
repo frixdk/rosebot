@@ -12,3 +12,4 @@ slackclient==1.2.1
 Unidecode==0.4.21
 urllib3==1.22
 websocket-client==0.47.0
+pokebase==1.2.0

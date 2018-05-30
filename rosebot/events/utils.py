@@ -2,6 +2,7 @@ import datetime
 import random
 import re
 import xml.etree.ElementTree as ET
+from random import randint
 
 import requests
 from django.conf import settings
@@ -11,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from slugify import slugify
 
+import pokebase as pb
 from slackclient import SlackClient
 
 Client = SlackClient(settings.SLACK_BOT_USER_TOKEN)
@@ -114,6 +116,16 @@ def handle_event_message(event_message):
             bot_text = 'Det er ikke fredag i dag. Der er {} dage, {} timer og {} minutter til fredag'.format(timeleft['days'], timeleft['hours'], timeleft['minutes'])
     elif 'skål' in im:
         bot_text = ' :wine_glass: SKÅL {} :wine_glass:'.format(get_user_display(user))
+    elif 'pokemon' in im:
+        random_pokemon = pb.pokemon(randint(1, 150))
+        image_url = random_pokemon.sprites.front_default
+        attachments = attachments = [{"title": random_pokemon.name.title(),
+                                      "image_url": image_url}]
+
+        Client.api_call(method='chat.postMessage',
+                        text=f'A wild {random_pokemon.name.title()} appears',
+                        channel=channel,
+                        attachments=attachments)
     else:
         print("no?", sim)
 
