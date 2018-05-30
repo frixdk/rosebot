@@ -123,7 +123,7 @@ def handle_event_message(event_message):
                                       "image_url": image_url}]
 
         Client.api_call(method='chat.postMessage',
-                        text=f'A wild {random_pokemon.name.title()} appears',
+                        text='A wild {} appears'.format(random_pokemon.name.title()),
                         channel=channel,
                         attachments=attachments)
     else:
