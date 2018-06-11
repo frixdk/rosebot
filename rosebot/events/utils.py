@@ -117,7 +117,7 @@ def handle_event_message(event_message):
     elif 'skål' in im:
         bot_text = ' :wine_glass: SKÅL {} :wine_glass:'.format(get_user_display(user))
     elif 'pokemon' in im:
-        random_pokemon = pb.pokemon(randint(1, 150))
+        random_pokemon = pb.pokemon(randint(1, 802))
         image_url = random_pokemon.sprites.front_default
         attachments = attachments = [{"title": random_pokemon.name.title(),
                                       "image_url": image_url}]
