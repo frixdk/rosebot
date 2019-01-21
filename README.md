@@ -12,4 +12,5 @@ $ python manage.py testmsg
 $ git fetch origin
 $ git reset --hard origin/master
 $ systemctl restart emperor.uwsgi.service
+If changes to requirements dont forget to pip install in the virtual env
 ```
