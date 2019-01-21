@@ -70,6 +70,14 @@ def time_until(event_datetime):
         'minutes': minutes
     }
 
+def get_replacement_words():
+    # Save these in DB at some point
+    return {
+        'øl': 'rosé',
+        'smør': 'ost',
+        'ost': 'smør'
+    }
+
 def handle_event_message(event_message):
     # process user's message
     user = event_message.get('user')
@@ -93,8 +101,16 @@ def handle_event_message(event_message):
         bot_text = "'Stax players are agents of Satan' - Hitler 1997 :smiling_imp:"
     elif 'peter madsen' in im:
         bot_text = "Peter Madsen did nothing wrong"
-    elif 'øl' in im:
-        better_msg = replace_keep_case("øl", "rosé", text)
+    elif any(word in im for word in get_replacement_words().keys()):
+        # Could probably be done better with regex
+        better_msg_words = []
+        for word in text.split():
+            some_better_word = word
+            for bad_word, better_word in get_replacement_words().items():
+                if bad_word in word.lower():
+                    some_better_word = replace_keep_case(bad_word, better_word, word)
+            better_msg_words.append(some_better_word)
+        better_msg = ' '.join(better_msg_words)
         response = AdminClient.api_call(
             "chat.update",
             ts=timestamp,
@@ -103,7 +119,7 @@ def handle_event_message(event_message):
         )
         if not response.get('ok'):
             ud = get_user_display(user)
-            bot_text = "{}. Mente du: {}?".format(ud, replace_keep_case("øl", "rosé", text))
+            bot_text = "{}. Mente du: {}?".format(ud, better_msg)
     elif 'fredag' in im:
         if datetime.datetime.now().weekday() == 4:
             bot_text = "I dag er det fredag. :wine_glass: SKÅL :wine_glass:"
