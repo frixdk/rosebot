@@ -5,18 +5,19 @@ import xml.etree.ElementTree as ET
 from random import randint
 
 import requests
+
+import pokebase as pb
 from django.conf import settings
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from slugify import slugify
-
-import pokebase as pb
 from slackclient import SlackClient
+from slugify import slugify
 
 Client = SlackClient(settings.SLACK_BOT_USER_TOKEN)
 AdminClient = SlackClient(settings.SLACK_OAUTH_ACCESS_TOKEN)
+
 
 def replace_keep_case(word, replacement, text):
     def func(match):
@@ -70,6 +71,7 @@ def time_until(event_datetime):
         'minutes': minutes
     }
 
+
 def get_replacement_words():
     # Save these in DB at some point
     return {
@@ -77,6 +79,7 @@ def get_replacement_words():
         'smør': 'ost',
         'ost': 'smør'
     }
+
 
 def handle_event_message(event_message):
     # process user's message
@@ -90,7 +93,7 @@ def handle_event_message(event_message):
 
     bot_text = ''
     if 'polen' in sim:
-        polen = datetime.datetime(2019, 5, 23, 13, 0, 0)
+        polen = datetime.datetime(2019, 5, 23, 10, 30, 0)
         timeleft = time_until(polen)
         if timeleft:
             bot_text = ('Der er {} dage, {} timer og {} minutter til Polen').format(
