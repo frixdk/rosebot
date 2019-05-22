@@ -34,9 +34,8 @@ def replace_keep_case(word, replacement, text):
 
 def get_rose_message():
     rose_messages = [
-        'Det er pissefint rosévejr',
-        'Det bliver ikke bedre',
         'Rosébowling?',
+        "Det er altid godt vejr i Polen",
         "Åh gu' så fint et rosévejr",
         'Rosévejr? Bare hæld op',
         "Åh som du vil ha'",
@@ -77,7 +76,9 @@ def get_replacement_words():
     return {
         'øl': 'rosé',
         'smør': 'ost',
-        'ost': 'smør'
+        'ost': 'smør',
+        'jan': 'allan',
+        'allan': 'jan'
     }
 
 
@@ -96,8 +97,18 @@ def handle_event_message(event_message):
         polen = datetime.datetime(2019, 5, 23, 10, 30, 0)
         timeleft = time_until(polen)
         if timeleft:
-            bot_text = ('Der er {} dage, {} timer og {} minutter til Polen').format(
-                timeleft['days'], timeleft['hours'], timeleft['minutes'])
+            dage = "dage"
+            if timeleft['days'] == 1:
+                dage = "dag"
+
+            if not timeleft['days'] and not timeleft['hours']:
+                bot_text = ('{} MINUTTER TIL POLEN!').format(timeleft['minutes'])
+            elif not timeleft['days']:
+                bot_text = ('Der er kun {} timer og {} minutter til Polen').format(
+                    timeleft['hours'], timeleft['minutes'])
+            else:
+                bot_text = ('Der er {} {}, {} timer og {} minutter til Polen').format(
+                    timeleft['days'], dage, timeleft['hours'], timeleft['minutes'])
         else:
             bot_text = ':flag-pl: POLEN!!! :flag-pl:'
     elif 'stax' in im:
