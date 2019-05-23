@@ -100,15 +100,21 @@ def handle_event_message(event_message):
             dage = "dage"
             if timeleft['days'] == 1:
                 dage = "dag"
+            timer = "timer"
+            if timeleft['hours'] == 1:
+                dage = "time"
+            minutter = "minutter"
+            if timeleft['minutes'] == 1:
+                dage = "minut"
 
             if not timeleft['days'] and not timeleft['hours']:
-                bot_text = ('{} MINUTTER TIL POLEN!').format(timeleft['minutes'])
+                bot_text = ('Der er kun {} {} til POLEN!').format(timeleft['minutes'], minutter)
             elif not timeleft['days']:
-                bot_text = ('Der er kun {} timer og {} minutter til Polen').format(
-                    timeleft['hours'], timeleft['minutes'])
+                bot_text = ('Der er kun {} {} og {} {} til Polen').format(
+                    timeleft['hours'], timer, timeleft['minutes'], minutter)
             else:
-                bot_text = ('Der er {} {}, {} timer og {} minutter til Polen').format(
-                    timeleft['days'], dage, timeleft['hours'], timeleft['minutes'])
+                bot_text = ('Der er {} {}, {} {} og {} {} til Polen').format(
+                    timeleft['days'], dage, timeleft['hours'], timer, timeleft['minutes'], minutter)
         else:
             bot_text = ':flag-pl: POLEN!!! :flag-pl:'
     elif 'stax' in im:
