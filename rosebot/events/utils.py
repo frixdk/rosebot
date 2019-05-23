@@ -102,10 +102,10 @@ def handle_event_message(event_message):
                 dage = "dag"
             timer = "timer"
             if timeleft['hours'] == 1:
-                dage = "time"
+                timer = "time"
             minutter = "minutter"
             if timeleft['minutes'] == 1:
-                dage = "minut"
+                minutter = "minut"
 
             if not timeleft['days'] and not timeleft['hours']:
                 bot_text = ('Der er kun {} {} til POLEN!').format(timeleft['minutes'], minutter)
