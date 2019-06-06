@@ -94,7 +94,7 @@ def handle_event_message(event_message):
 
     bot_text = ''
     if 'polen' in sim or re.search("p+o+l+e+n+", sim):
-        polen = datetime.datetime(2020, 5, 07, 10, 30, 0)
+        polen = datetime.datetime(2020, 5, 7, 10, 30, 0)
         timeleft = time_until(polen)
         if timeleft:
             dage = "dage"
