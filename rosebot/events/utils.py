@@ -71,14 +71,36 @@ def time_until(event_datetime):
     }
 
 
+def get_random_names(number):
+    names = [
+        'kasper',
+        'allan',
+        'jan',
+        'kenneth',
+        'kermie',
+        'thies',
+        'frix',
+        'jeppe',
+        'simon',
+        'aske'
+    ]
+
+    random.shuffle(names)
+    return names[:number]
+
+
 def get_replacement_words():
     # Save these in DB at some point
+
+    random_names = get_random_names(8)
     return {
         'øl': 'rosé',
         'smør': 'ost',
         'ost': 'smør',
-        'jan': 'allan',
-        'allan': 'jan'
+        random_names[0]: random_names[1],
+        random_names[2]: random_names[3],
+        random_names[4]: random_names[5],
+        random_names[6]: random_names[7]
     }
 
 
