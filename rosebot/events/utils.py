@@ -114,6 +114,8 @@ def handle_event_message(event_message):
     im = text.lower()
     sim = slugify(text.lower())
 
+    replacement_words = get_replacement_words()
+
     bot_text = ''
     if 'polen' in sim or re.search("p+o+l+e+n+", sim):
         polen = datetime.datetime(2020, 5, 7, 10, 30, 0)
@@ -143,12 +145,12 @@ def handle_event_message(event_message):
         bot_text = "'Stax players are agents of Satan' - Hitler 1997 :smiling_imp:"
     elif 'peter madsen' in im:
         bot_text = "Peter Madsen did nothing wrong"
-    elif any(word in im for word in get_replacement_words().keys()):
+    elif any(word in im for word in replacement_words.keys()):
         # Could probably be done better with regex
         better_msg_words = []
         for word in text.split():
             some_better_word = word
-            for bad_word, better_word in get_replacement_words().items():
+            for bad_word, better_word in replacement_words.items():
                 if bad_word in word.lower():
                     some_better_word = replace_keep_case(bad_word, better_word, word)
             better_msg_words.append(some_better_word)
