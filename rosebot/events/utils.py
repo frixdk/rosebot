@@ -97,6 +97,7 @@ def get_replacement_words():
         'øl': 'rosé',
         'smør': 'ost',
         'ost': 'smør',
+        'corona': 'pest',
         random_names[0]: random_names[1],
         random_names[2]: random_names[3],
         random_names[4]: random_names[5],
@@ -118,7 +119,7 @@ def handle_event_message(event_message):
 
     bot_text = ''
     if 'polen' in sim or re.search("p+o+l+e+n+", sim):
-        polen = datetime.datetime(2020, 5, 7, 10, 30, 0)
+        polen = datetime.datetime(2020, 9, 10, 10, 30, 0)
         timeleft = time_until(polen)
         if timeleft:
             dage = "dage"
