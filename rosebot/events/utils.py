@@ -119,7 +119,7 @@ def handle_event_message(event_message):
 
     bot_text = ''
     if 'polen' in sim or re.search("p+o+l+e+n+", sim):
-        polen = datetime.datetime(2020, 9, 10, 10, 30, 0)
+        polen = datetime.datetime(2021, 9, 9, 10, 30, 0)
         timeleft = time_until(polen)
         if timeleft:
             dage = "dage"
@@ -144,8 +144,6 @@ def handle_event_message(event_message):
             bot_text = ':flag-pl: POLEN!!! :flag-pl:'
     elif 'stax' in im:
         bot_text = "'Stax players are agents of Satan' - Hitler 1997 :smiling_imp:"
-    elif 'peter madsen' in im:
-        bot_text = "Peter Madsen did nothing wrong"
     elif any(word in im for word in replacement_words.keys()):
         # Could probably be done better with regex
         better_msg_words = []
@@ -217,7 +215,7 @@ def handle_event_message(event_message):
                     forecast = fc
                     break
         if 'polsemix' in sim:
-            pølsemix = datetime.datetime(2019, 5, 23, 0, 0, 0)
+            pølsemix = datetime.datetime(2021, 9, 9, 10, 3, 0)
             # Find the next forecast from tomorrow noon
             for fc in forecasts:
                 forecast_time = datetime.datetime.strptime(fc.get('from'), '%Y-%m-%dT%H:%M:%S')
